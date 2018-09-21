@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Enumeration;
 
 @Slf4j
 @WebServlet(
@@ -39,6 +40,14 @@ public class FirstServlet extends HttpServlet {
         log.debug("inside  doGet of FirstServlet");
         PrintWriter out = resp.getWriter();
         Date date = new Date();
+        Enumeration<String> headers = req.getHeaderNames();
+        while(headers.hasMoreElements()) {
+            String header = headers.nextElement();
+            Enumeration<String> values = req.getHeaders(header);
+            while (values.hasMoreElements()) {
+                log.debug(header + " : " + values.nextElement());
+            }
+        }
         out.println(HTML_START + "<h2>Hi There!</h2><br/><h3>Date="+date +"</h3>"+HTML_END);
     }
 }
