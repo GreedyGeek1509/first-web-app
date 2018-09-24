@@ -29,6 +29,12 @@ import static com.sriram.web.firstapp.FirstServlet.HTML_START;
 )
 public class SecondServlet extends HttpServlet {
     @Override
+    public void init() throws ServletException {
+        log.debug("Iniside init method of SecondServlet.");
+        super.init();
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("Inside doGet method of SecondServlet");
         PrintWriter out = resp.getWriter();
@@ -41,5 +47,11 @@ public class SecondServlet extends HttpServlet {
             }
         }
         out.println(HTML_START + "<h2>Hi There!</h2><br/><h3>Timestamp = " + System.currentTimeMillis() + "</h3>"+HTML_END);
+    }
+
+    @Override
+    public void destroy() {
+        log.debug("Inside destroy method of SecondServlet");
+        super.destroy();
     }
 }
